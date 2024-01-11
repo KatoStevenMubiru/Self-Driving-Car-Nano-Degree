@@ -74,53 +74,24 @@ std::vector<State> MotionPlanner::generate_offset_goals_global_frame(
 
 std::vector<State> MotionPlanner::generate_offset_goals(
     const State& goal_state) {
-  // Now we need to gernerate "_num_paths" goals offset from the center goal at
+  // Now we need to generate "_num_paths" goals offset from the center goal at
   // a distance "_goal_offset".
   std::vector<State> goals_offset;
 
-  // the goals will be aligned on a perpendiclular line to the heading of the
+  // the goals will be aligned on a perpendicular line to the heading of the
   // main goal. To get a perpendicular angle, just add 90 (or PI/2) to the main
   // goal heading.
 
-  // TODO-Perpendicular direction: ADD pi/2 to the goal yaw
-  // (goal_state.rotation.yaw)
-  // TODO-Perpendicular direction: ADD pi/2 to the goal yaw (goal_state.rotation.yaw)
-    auto yaw_plus_90 = goal_state.rotation.yaw + M_PI_2;
+  // Perpendicular direction: ADD pi/2 to the goal yaw (goal_state.rotation.yaw)
+  auto yaw_plus_90 = goal_state.rotation.yaw + M_PI_2;
 
-  // LOG(INFO) << "MAIN GOAL";
-  // LOG(INFO) << "x: " << goal_state.location.x << " y: " <<
-  // goal_state.location.y
-  //          << " z: " << goal_state.location.z
-  //          << " yaw (rad): " << goal_state.rotation.yaw;
-  // LOG(INFO) << "OFFSET GOALS";
-  // LOG(INFO) << "ALL offset yaw (rad): " << yaw;
+  for (int i = 0; i < P_NUM_PATHS; ++i) {
+   auto goal_offset = goal_state;
+    float offset = (i - (P_NUM_PATHS / 2)) * P_GOAL_OFFSET;
 
-  for (int i = 0; i < _num_paths; ++i) {
-    auto goal_offset = goal_state;
-    float offset = (i - (int)(_num_paths / 2)) * _goal_offset;
-    // LOG(INFO) << "Goal: " << i + 1;
-    // LOG(INFO) << "(int)(_num_paths / 2): " << (int)(_num_paths / 2);
-    // LOG(INFO) << "(i - (int)(_num_paths / 2)): " << (i - (int)(_num_paths /
-    // 2)); LOG(INFO) << "_goal_offset: " << _goal_offset;
-
-    // LOG(INFO) << "offset: " << offset;
-
-    // TODO-offset goal location: calculate the x and y position of the offset
-     goal_offset.location.x += offset * std::cos(yaw_plus_90);
-11   goal_offset.location.y += offset * std::sin(yaw_plus_90);
-12  // Add the rest of your goal offset logic here
-13   goals_offset.push_back(goal_offset);
-    // goals using "offset" (calculated above) and knowing that the goals should
-    // lie on a perpendicular line to the direction (yaw) of the main goal. You
-    // calculated this direction above (yaw_plus_90). HINT: use
-    // std::cos(yaw_plus_90) and std::sin(yaw_plus_90)
-    // goal_offset.location.x += ;  // <- Fix This
-    // goal_offset.location.y += ;  // <- Fix This
-    // LOG(INFO) << "x: " << goal_offset.location.x
-    //          << " y: " << goal_offset.location.y
-    //          << " z: " << goal_offset.location.z
-    //          << " yaw (rad): " << goal_offset.rotation.yaw;
-
+   // Offset goal location: calculate the x and y position of the offset goals
+    goal_offset.location.x += offset * std::cos(yaw_plus_90);
+    goal_offset.location.y += offset * std::sin(yaw_plus_90);
 
     if (valid_goal(goal_state, goal_offset)) {
       goals_offset.push_back(goal_offset);
