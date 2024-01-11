@@ -1,5 +1,5 @@
 /**********************************************
- * Self-Driving Car Nano-degree - Udacity
+  * Self-Driving Car Nano-degree - Udacity
  *  Created on: September 20, 2020
  *      Author: Kato Steven Mubiru
  **********************************************/
@@ -13,7 +13,7 @@
 #include <array>
 
 // Planning Constants
-#define P_NUM_PATHS 7                  // TODO - Num of paths (goals): Chose a value for “P_NUM_PATHS”
+#define P_NUM_PATHS 7                  // Chosen value for “P_NUM_PATHS”
 #define P_LOOKAHEAD_MIN 8.0            // m
 #define P_LOOKAHEAD_MAX 20.0           // m
 #define P_LOOKAHEAD_TIME 1.5           // s
@@ -28,7 +28,7 @@
 #define P_REQ_STOPPED_TIME 1.0         // secs
 #define P_LEAD_VEHICLE_LOOKAHEAD 20.0  // m
 #define P_REACTION_TIME 0.25           // secs
-#define P_NUM_POINTS_IN_SPIRAL 10      // TODO - Num of points in the spiral: choose a value for “P_NUM_POINTS_IN_SPIRAL”
+#define P_NUM_POINTS_IN_SPIRAL 30      // Chosen value for “P_NUM_POINTS_IN_SPIRAL”
 
 #define P_STOP_THRESHOLD_DISTANCE \
   P_LOOKAHEAD_MIN / P_NUM_POINTS_IN_SPIRAL * 2  // m
@@ -41,7 +41,7 @@ constexpr double dt = 0.05;
 // to generate appropriate perturbed goals. EGO REF FRAME
 constexpr std::array<float, 3> SIGMA_X = {4, 1.0, 2.0};
 
-// Standard devaition parameters for y, y_dot, y_double_dot
+// Standard deviation parameters for y, y_dot, y_double_dot
 // to generate appropriate perturbed goals. EGO REF FRAME
 constexpr std::array<float, 3> SIGMA_Y = {0.5, 1.0, 0.5};
 
@@ -64,4 +64,4 @@ constexpr double CONFORT_MAX_LON_ACCEL = 3.0;  // m/s2
 constexpr double CONFORT_MAX_LAT_ACCEL = 1.0;  // m/s2
 
 constexpr double MIN_MANEUVER_TIME = dt * 10;  // min steps
-constexpr double MAX_MANEUVER_TIME = dt * 75;  // max steps
+constexpr double MAX_MANEUVER_TIME = dt * 75;  // max steps.
